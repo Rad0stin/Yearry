@@ -10,7 +10,7 @@ import com.ppmgto.yearbook.databinding.PersonItemBinding
 data class Person (
     val name: String,
     val imageId: Int,
-    val onClick: () -> Unit,
+    val onClick: (Int) -> Unit,
 )
 
 class PersonAdapter : ListAdapter<Person, PersonAdapter.ReelsItemViewHolder>(
@@ -58,7 +58,7 @@ class PersonAdapter : ListAdapter<Person, PersonAdapter.ReelsItemViewHolder>(
             binding.personIv.setImageResource(person.imageId)
             binding.name.text = person.name
             binding.root.setOnClickListener{
-                person.onClick.invoke()
+                person.onClick.invoke(person.imageId)
             }
         }
     }

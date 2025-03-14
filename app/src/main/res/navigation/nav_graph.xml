@@ -10,11 +10,13 @@
         android:name="com.ppmgto.yearbook.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_Activity_to_FirstFragment"
+        app:destination="@id/FirstFragment" />
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.ppmgto.yearbook.SecondFragment"

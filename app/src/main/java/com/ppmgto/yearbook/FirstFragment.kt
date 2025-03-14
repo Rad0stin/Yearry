@@ -1,11 +1,13 @@
 package com.ppmgto.yearbook
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import com.ppmgto.yearbook.databinding.FragmentFirstBinding
 
 /**
@@ -31,10 +33,37 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val name = requireArguments().getString("name")
+        val pic = requireArguments().getInt("pic")
+        val number = requireArguments().getString("number")
+        val song = requireArguments().getString("songId")
+        val desc = requireArguments().getString("desc")
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.backButton.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
         }
+        binding.favSong.setOnClickListener {
+            openYoutubeLink(song!!)
+        }
+        binding.favSong.setOnClickListener {
+            openYoutubeLink(song!!)
+        }
+
+        binding.personIv.setImageResource(pic)
+        binding.name.text = name
+        binding.number.text = number
+        binding.description.text = desc
+    }
+
+    fun openYoutubeLink(youtubeID: String) {
+        val intentApp = Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + youtubeID))
+        val intentBrowser = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + youtubeID))
+        try {
+            this.startActivity(intentApp)
+        } catch (ex: ActivityNotFoundException) {
+            this.startActivity(intentBrowser)
+        }
+
     }
 
     override fun onDestroyView() {
